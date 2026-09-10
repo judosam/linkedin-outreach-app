@@ -17,11 +17,12 @@ from .auth import verify_password, create_session, validate_session, destroy_ses
 from .database import init_db, get_db, SessionLocal
 from . import scheduler
 from .models import LeadEvent
-from .jobs import _add_event
+from .jobs import _add_event, recover_stuck_runs
 
 app = FastAPI(title='Outreach Command Center', version='1.0.0')
 
 init_db()
+recover_stuck_runs()
 
 
 # ---------------------------------------------------------------------------

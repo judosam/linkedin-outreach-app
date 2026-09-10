@@ -118,6 +118,18 @@ class _Run:
     def finish(self, status: RunStatus = RunStatus.SUCCESS):
         _finish(self.run, self.db, status, self.stats, self.errors)
 
+    def abort(self, exc: Exception):
+        """Finalize THIS run's row as errored (self-healing on fatal exceptions)."""
+        try:
+            self.run.status = RunStatus.ERROR.value
+            self.run.finished_at = _now()
+            self.run.duration_s = (self.run.finished_at - self.run.started_at).total_seconds()
+            self.run.errors = [str(exc)[:1000]]
+            self.run.log_text = '\n'.join(getattr(self.run, '_log_lines', []))[-60000:]
+            self.db.commit()
+        except Exception:
+            self.db.rollback()
+
 
 def _has_session_files(account: Account) -> bool:
     return bool(account.session_ref)
@@ -171,9 +183,11 @@ def job_sync_leads(campaign_ids: list[int] | None = None, dry_run=False):
     """JOB 1: one BATCH run over every active campaign. Campaign-level search_url
     runs with the first account's session; per-account overrides run with their
     own session. New leads are tagged with the campaign and added to the pool."""
+    run = None
     db = SessionLocal()
     try:
         run = _Run(db, JobType.SYNC_LEADS, 'All active campaigns', dry_run)
+        log = run.log
         campaigns = db.execute(
             select(Campaign).where(Campaign.status == 'active')
             .order_by(Campaign.id)
@@ -239,7 +253,7 @@ def job_sync_leads(campaign_ids: list[int] | None = None, dry_run=False):
         run.finish(RunStatus.PARTIAL if any_error else RunStatus.SUCCESS)
     except Exception as e:
         db.rollback()
-        _fatal(db, JobType.SYNC_LEADS, e)
+        _fatal(db, JobType.SYNC_LEADS, e, run_row=run.run if run else None)
     finally:
         db.close()
 
@@ -252,11 +266,13 @@ def job_import_list(account_id: int, list_id: str, dry_run=False):
     """JOB 2: separate manual tool - imports a numeric Sales Navigator List ID
     via the List-pivot people-search endpoint. Leads land UNTAGGED
     (campaign_id NULL, source=list_import); assignment happens later manually."""
+    run = None
     db = SessionLocal()
     try:
         account = db.get(Account, account_id)
         run = _Run(db, JobType.IMPORT_LIST, f"{account.name} · list {list_id}", dry_run,
                    account_id=account_id)
+        log = run.log
         if account is None:
             run.errors.append(f"Account {account_id} not found")
             run.finish(RunStatus.ERROR)
@@ -294,7 +310,7 @@ def job_import_list(account_id: int, list_id: str, dry_run=False):
         run.finish()
     except Exception as e:
         db.rollback()
-        _fatal(db, JobType.IMPORT_LIST, e)
+        _fatal(db, JobType.IMPORT_LIST, e, run_row=run.run if run else None)
     finally:
         db.close()
 
@@ -322,10 +338,12 @@ def job_send_connections(campaign_ids: list[int] | None = None, dry_run=False):
     ORDER; an account sends until its own budgets are exhausted, then leftovers
     roll to the next account. OpenLink -> InMail (needs inmail budget);
     otherwise invite (needs invite budget)."""
+    run = None
     db = SessionLocal()
     today = date.today()
     try:
         run = _Run(db, JobType.SEND_CONNECTIONS, 'All active campaigns', dry_run)
+        log = run.log
         campaigns = db.execute(
             select(Campaign).where(Campaign.status == 'active').order_by(Campaign.id)
         ).scalars().all()
@@ -503,7 +521,7 @@ def job_send_connections(campaign_ids: list[int] | None = None, dry_run=False):
         run.finish()
     except Exception as e:
         db.rollback()
-        _fatal(db, JobType.SEND_CONNECTIONS, e)
+        _fatal(db, JobType.SEND_CONNECTIONS, e, run_row=run.run if run else None)
     finally:
         db.close()
 
@@ -544,23 +562,52 @@ def notify_run_summary_and_errors(run, label):
         print(f"⚠️ run summary notification failed: {e}")
 
 
-def _fatal(db: OrmSession, job_type: JobType, exc: Exception):
-    """Record a fatal run-level exception and alert immediately."""
+def _fatal(db: OrmSession, job_type: JobType, exc: Exception, run_row: RunLog | None = None):
+    """Finalize the job's own run row (preferred), else the latest stuck 'running'
+    row, else a fresh '(fatal)' row — then alert immediately."""
     traceback.print_exc()
     try:
-        run = RunLog(
-            job_type=job_type.value, target='(fatal)', status=RunStatus.ERROR.value,
-            started_at=_now(), finished_at=_now(), duration_s=0,
-            stats=None, errors=[str(exc)[:1000]],
-        )
-        db.add(run)
+        row = run_row
+        if row is None:
+            row = db.query(RunLog).filter_by(
+                job_type=job_type.value, status=RunStatus.RUNNING.value
+            ).order_by(RunLog.id.desc()).first()
+        if row is not None:
+            row.status = RunStatus.ERROR.value
+            row.finished_at = _now()
+            row.duration_s = (row.finished_at - row.started_at).total_seconds() if row.started_at else 0
+            row.errors = [str(exc)[:1000]]
+        else:
+            db.add(RunLog(
+                job_type=job_type.value, target='(fatal)', status=RunStatus.ERROR.value,
+                started_at=_now(), finished_at=_now(), duration_s=0, errors=[str(exc)[:1000]],
+            ))
         db.commit()
     except Exception:
+        db.rollback()
         pass
     try:
         notify.notify_critical(str(job_type.value), exc)
     except Exception:
         pass
+
+
+def recover_stuck_runs():
+    """On startup, mark rows left 'running' by a crash as errored."""
+    db = SessionLocal()
+    try:
+        stuck = db.query(RunLog).filter_by(status=RunStatus.RUNNING.value).all()
+        for row in stuck:
+            row.status = RunStatus.ERROR.value
+            row.finished_at = _now()
+            row.errors = row.errors or ['interrupted by server restart']
+        if stuck:
+            db.commit()
+            print(f"[recovery] marked {len(stuck)} interrupted run(s) as errored")
+    except Exception:
+        db.rollback()
+    finally:
+        db.close()
 
 
 # ---------------------------------------------------------------------------
@@ -576,10 +623,12 @@ def job_check_replies(campaign_ids: list[int] | None = None, account_ids: list[i
     - Replies: any thread message authored BY THE LEAD marks received_replies,
       stores reply_message, and queues the reply digest email.
     """
+    run = None
     db = SessionLocal()
     today = date.today()
     try:
         run = _Run(db, JobType.CHECK_REPLIES, 'All campaigns/accounts', dry_run)
+        log = run.log
         campaigns = db.execute(select(Campaign).order_by(Campaign.id)).scalars().all()
         if campaign_ids:
             campaigns = [c for c in campaigns if c.id in campaign_ids]
@@ -712,7 +761,7 @@ def job_check_replies(campaign_ids: list[int] | None = None, account_ids: list[i
         run.finish()
     except Exception as e:
         db.rollback()
-        _fatal(db, JobType.CHECK_REPLIES, e)
+        _fatal(db, JobType.CHECK_REPLIES, e, run_row=run.run if run else None)
     finally:
         db.close()
 
@@ -738,10 +787,12 @@ def job_send_followups(campaign_ids: list[int] | None = None, account_ids: list[
     """JOB 5: staged follow-ups (+3/+5/+7 days) for both tracks, skipping any
     lead with received_replies. Draws from the SHARED messages_sent budget
     (capped at round(message_limit/2)), shared with Job 4."""
+    run = None
     db = SessionLocal()
     today = date.today()
     try:
         run = _Run(db, JobType.SEND_FOLLOWUPS, 'All campaigns/accounts', dry_run)
+        log = run.log
         campaigns = db.execute(select(Campaign).order_by(Campaign.id)).scalars().all()
         if campaign_ids:
             campaigns = [c for c in campaigns if c.id in campaign_ids]
@@ -854,7 +905,7 @@ def job_send_followups(campaign_ids: list[int] | None = None, account_ids: list[
         run.finish()
     except Exception as e:
         db.rollback()
-        _fatal(db, JobType.SEND_FOLLOWUPS, e)
+        _fatal(db, JobType.SEND_FOLLOWUPS, e, run_row=run.run if run else None)
     finally:
         db.close()
 
