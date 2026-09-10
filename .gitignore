@@ -1,0 +1,34 @@
+# Secrets & credentials — never commit
+.env
+credentials.json
+client_secret*.json
+
+# LinkedIn session cookies & browser profiles (live auth material)
+cookies_files/
+user_data/
+
+# Runtime state
+daily_run_counts/
+*.log
+list_id.txt
+
+# Campaign content overrides written by the web app
+campaign_overrides.json
+
+# Web app local data (run history SQLite etc.)
+app_data/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node
+node_modules/
+frontend/dist/
+frontend/node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
