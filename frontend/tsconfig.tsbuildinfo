@@ -1,0 +1,1 @@
+{"root":["./src/api.ts","./src/main.tsx","./src/ui.tsx","./src/pages/accounts.tsx","./src/pages/campaigndetail.tsx","./src/pages/campaigns.tsx","./src/pages/dashboard.tsx","./src/pages/jobs.tsx","./src/pages/leads.tsx","./src/pages/login.tsx","./src/pages/settings.tsx","./src/pages/threads.tsx"],"version":"5.9.3"}

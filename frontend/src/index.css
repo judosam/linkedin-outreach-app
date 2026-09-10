@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { @apply text-[13px] text-slate-900 antialiased; }
+  body { @apply bg-canvas font-ui; }
+  /* Visible focus rings everywhere (accessibility non-negotiable) */
+  :focus-visible { outline: 2px solid #4F46E5; outline-offset: 1px; }
+}
+
+@layer components {
+  .msym {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+  }
+  .card { @apply bg-white border border-hairline rounded-card shadow-card; }
+  .btn-primary {
+    @apply h-8 px-3 rounded-control bg-primary text-white text-[12px] font-semibold
+           inline-flex items-center gap-1.5 transition-colors duration-150
+           hover:bg-primary-hover active:bg-primary-active disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-secondary {
+    @apply h-8 px-3 rounded-control bg-white border border-accentline text-slate-700 text-[12px] font-medium
+           inline-flex items-center gap-1.5 transition-colors duration-150
+           hover:bg-canvas active:bg-inset disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-ghost {
+    @apply h-7 w-7 rounded-control inline-flex items-center justify-center text-slate-500
+           transition-colors duration-150 hover:bg-inset;
+  }
+  .input {
+    @apply h-8 px-2.5 rounded-control border border-accentline bg-white text-[13px] text-slate-900
+           placeholder:text-slate-400 w-full transition-shadow duration-150 focus:ring-2 focus:ring-primary focus:border-primary;
+  }
+  .mono { @apply font-mono; }
+}
+
+/* Thin scrollbars for dense panels */
+.scroll-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+.scroll-thin::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 9999px; }

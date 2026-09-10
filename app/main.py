@@ -739,8 +739,13 @@ def CronTriggerProxy(**kw):
     return CronTrigger(**kw)
 
 
+@app.get('/api/health')
+def health():
+    return {'ok': True, 'time': datetime.utcnow().isoformat(timespec='seconds')}
+
+
 # ---------------------------------------------------------------------------
-# Static frontend (built React app)
+# Static frontend (built React app) - registered LAST so /api/* wins
 # ---------------------------------------------------------------------------
 
 FRONTEND_DIST = PROJECT_ROOT / 'frontend' / 'dist'
@@ -749,12 +754,20 @@ if FRONTEND_DIST.exists():
 
     @app.get('/{full_path:path}', include_in_schema=False)
     def spa(full_path: str):
+        if full_path.startswith('api/') or full_path == 'api':
+            return JSONResponse({'detail': 'Not found'}, status_code=404)
         candidate = FRONTEND_DIST / full_path
         if full_path and candidate.is_file():
             return FileResponse(candidate)
         return FileResponse(FRONTEND_DIST / 'index.html')
 
 
-@app.get('/api/health')
-def health():
-    return {'ok': True, 'time': datetime.utcnow().isoformat(timespec='seconds')}
+# ---------------------------------------------------------------------------
+# Scheduler lifecycle
+# ---------------------------------------------------------------------------
+
+if os.environ.get('OCC_DISABLE_SCHEDULER', '').strip().lower() not in ('1', 'true', 'yes'):
+    try:
+        scheduler.init_scheduler()
+    except Exception as e:
+        print(f"⚠️ Scheduler failed to start: {e}")

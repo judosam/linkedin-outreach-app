@@ -121,6 +121,10 @@ def _opentomsg_from(value: str):
 
 def migrate_leads(db):
     """Search Data = lead pool; Followup msg = engagement-state overlay."""
+    if not os.path.exists(pcom.SERVICE_ACCOUNT_FILE):
+        print('⚠️ Skipping lead migration: Google service account file not found at '
+              f"{pcom.SERVICE_ACCOUNT_FILE} - place credentials.json and re-run to import leads")
+        return 0, 0, 0, {'created': 0, 'updated': 0, 'unmatched_campaign': 0}
     campaign_rows = {c.campaign_key: c for c in db.query(Campaign).all()}
     account_rows = {a.name: a for a in db.query(Account).all()}
 

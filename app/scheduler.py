@@ -81,10 +81,11 @@ def init_scheduler() -> BackgroundScheduler:
     scheduler = BackgroundScheduler(timezone='UTC')
     schedule = load_schedule()
 
+    job_values = {j.value for j in JobType}
     for job_key, times in schedule.items():
         if not times or job_key == 'import_list':
             continue
-        if job_key not in JobType.__members__:
+        if job_key not in job_values:
             continue
         for t in times:
             hour, minute = str(t).split(':')[:2]

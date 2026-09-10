@@ -8,6 +8,7 @@ Nothing here runs at import time beyond reading .env - it is safe to import.
 """
 import json
 import os
+import sys
 from datetime import datetime
 
 try:
@@ -15,6 +16,15 @@ try:
     load_dotenv()
 except ImportError:
     pass
+
+# Windows consoles default to cp1252 and crash on emoji in print(); the pipeline
+# and web app both log emoji-rich lines, so force UTF-8 with replacement.
+for _stream in (sys.stdout, sys.stderr):
+    if hasattr(_stream, 'reconfigure'):
+        try:
+            _stream.reconfigure(encoding='utf-8', errors='replace')
+        except Exception:
+            pass
 
 # === Configuration (env-overridable, same defaults as the original scripts) ===
 MASTER_SHEET_ID = os.environ.get('MASTER_SHEET_ID', '1xdZtLvQZ6cshlI75-XuLU7dSuniL-2NIqVZ8mQYHUxk')
