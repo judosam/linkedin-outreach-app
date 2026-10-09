@@ -1,0 +1,61 @@
+{
+  "verified_at": "2026-10-06T10:22:57.3730187Z",
+  "checkout": "D:\\My workspace\\Linkedin Automation\\Linkedin Automation Project",
+  "build": "PASS: tsc -b and vite build",
+  "bundle_newer_than_sources": true,
+  "bundle_sha256": "465C767478512C8926BD1E2BC635FB798DD8CBBE35A8DD8D7EBF3BF6F4CFAC46",
+  "build_warning": "Existing bundle size warning: app.js 774.99 kB, gzip 216.43 kB",
+  "python_baseline": {
+    "failure": "Classic asset test incorrectly asserted classic scripts at React root",
+    "passed": 341,
+    "failed": 1
+  },
+  "python_final": {
+    "duration_seconds": 137.35,
+    "passed": 342,
+    "failed": 0
+  },
+  "browser_checks": {
+    "console_and_imports": "PASS",
+    "legacy_console": "PASS",
+    "notifications_visible_hidden_disabled": "PASS",
+    "routes_9_light_dark_1440_598": "PASS",
+    "scope": "PASS",
+    "retargeted_compatibility_scripts": "PASS",
+    "leads": "PASS"
+  },
+  "desktop_leads": {
+    "horizontal_overflow": false,
+    "columns": 12,
+    "maximum_row_height_px": 48
+  },
+  "protected_files": {
+    "changed": 0,
+    "added": 0,
+    "includes": "app/, templates/, static/ except static/dist/",
+    "checked": 39
+  },
+  "outreach": "All browser worker starts, batches, live logs and mutations stubbed; no real outreach or licence operations",
+  "deployment": "Not deployed, committed, or pushed",
+  "changed_sources": [
+    "frontend/src/components/AppShell.tsx",
+    "frontend/src/components/Modal.tsx",
+    "frontend/src/components/ImportDialog.tsx",
+    "frontend/src/components/ui.tsx",
+    "frontend/src/components/run.tsx",
+    "frontend/src/components/colfilter.tsx",
+    "frontend/src/lib/console.tsx",
+    "frontend/src/lib/notify.ts",
+    "frontend/src/pages/Dashboard.tsx",
+    "frontend/src/pages/Jobs.tsx",
+    "frontend/src/pages/Settings.tsx",
+    "frontend/src/pages/Leads.tsx",
+    "frontend/src/index.css"
+  ],
+  "limitations": [
+    "Location and OpenToMsg are page-scoped",
+    "CSV API supports campaign query only; use bulk Reassign afterward",
+    "Batch account selection remains read-only",
+    "Optional cross-page selection, history auto-scroll and SSE not implemented"
+  ]
+}

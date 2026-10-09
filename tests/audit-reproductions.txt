@@ -1,0 +1,446 @@
+[audit] 1 untouched lead(s)
+[audit/Audit account] budget: InMail 0/10, Invite 0/10
+[audit/Audit account] OpenToMsg check 1/1: Audit prospect - checking profile
+[audit/Audit account] OpenToMsg result: Audit prospect - not open to messages (saved)
+[audit/Audit account] Invite -> Audit prospect
+[audit/Audit account] done: contacted 1, final InMail 0/10, Invite 1/10
+.[audit] 1 untouched lead(s)
+[audit/Audit account] budget: InMail 0/10, Invite 0/10
+[audit/Audit account] OpenToMsg check 1/1: Audit prospect - not open to messages (cached)
+[audit/Audit account] Invite -> Audit prospect
+[audit/Audit account] done: contacted 1, final InMail 0/10, Invite 1/10
+.xxx[audit] 1 untouched lead(s)
+[audit/Audit account] budget: InMail 0/10, Invite 0/10
+[audit/Audit account] OpenToMsg check 1/1: Audit prospect - not open to messages (cached)
+[audit/Audit account] Invite -> Audit prospect
+[audit/Audit account] done: contacted 1, final InMail 0/10, Invite 1/10
+x[audit] 201 untouched lead(s)
+[audit/Audit account] budget: InMail 0/0, Invite 0/10
+[audit/Audit account] OpenToMsg check 1/201: Prospect 0 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 0 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 2/201: Prospect 1 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 1 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 3/201: Prospect 2 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 2 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 4/201: Prospect 3 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 3 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 5/201: Prospect 4 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 4 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 6/201: Prospect 5 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 5 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 7/201: Prospect 6 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 6 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 8/201: Prospect 7 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 7 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 9/201: Prospect 8 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 8 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 10/201: Prospect 9 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 9 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 11/201: Prospect 10 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 10 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 12/201: Prospect 11 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 11 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 13/201: Prospect 12 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 12 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 14/201: Prospect 13 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 13 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 15/201: Prospect 14 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 14 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 16/201: Prospect 15 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 15 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 17/201: Prospect 16 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 16 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 18/201: Prospect 17 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 17 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 19/201: Prospect 18 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 18 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 20/201: Prospect 19 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 19 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 21/201: Prospect 20 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 20 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 22/201: Prospect 21 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 21 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 23/201: Prospect 22 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 22 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 24/201: Prospect 23 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 23 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 25/201: Prospect 24 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 24 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 26/201: Prospect 25 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 25 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 27/201: Prospect 26 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 26 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 28/201: Prospect 27 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 27 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 29/201: Prospect 28 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 28 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 30/201: Prospect 29 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 29 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 31/201: Prospect 30 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 30 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 32/201: Prospect 31 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 31 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 33/201: Prospect 32 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 32 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 34/201: Prospect 33 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 33 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 35/201: Prospect 34 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 34 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 36/201: Prospect 35 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 35 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 37/201: Prospect 36 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 36 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 38/201: Prospect 37 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 37 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 39/201: Prospect 38 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 38 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 40/201: Prospect 39 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 39 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 41/201: Prospect 40 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 40 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 42/201: Prospect 41 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 41 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 43/201: Prospect 42 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 42 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 44/201: Prospect 43 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 43 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 45/201: Prospect 44 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 44 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 46/201: Prospect 45 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 45 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 47/201: Prospect 46 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 46 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 48/201: Prospect 47 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 47 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 49/201: Prospect 48 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 48 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 50/201: Prospect 49 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 49 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 51/201: Prospect 50 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 50 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 52/201: Prospect 51 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 51 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 53/201: Prospect 52 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 52 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 54/201: Prospect 53 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 53 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 55/201: Prospect 54 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 54 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 56/201: Prospect 55 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 55 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 57/201: Prospect 56 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 56 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 58/201: Prospect 57 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 57 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 59/201: Prospect 58 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 58 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 60/201: Prospect 59 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 59 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 61/201: Prospect 60 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 60 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 62/201: Prospect 61 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 61 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 63/201: Prospect 62 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 62 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 64/201: Prospect 63 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 63 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 65/201: Prospect 64 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 64 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 66/201: Prospect 65 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 65 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 67/201: Prospect 66 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 66 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 68/201: Prospect 67 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 67 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 69/201: Prospect 68 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 68 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 70/201: Prospect 69 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 69 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 71/201: Prospect 70 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 70 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 72/201: Prospect 71 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 71 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 73/201: Prospect 72 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 72 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 74/201: Prospect 73 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 73 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 75/201: Prospect 74 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 74 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 76/201: Prospect 75 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 75 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 77/201: Prospect 76 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 76 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 78/201: Prospect 77 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 77 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 79/201: Prospect 78 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 78 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 80/201: Prospect 79 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 79 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 81/201: Prospect 80 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 80 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 82/201: Prospect 81 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 81 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 83/201: Prospect 82 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 82 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 84/201: Prospect 83 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 83 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 85/201: Prospect 84 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 84 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 86/201: Prospect 85 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 85 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 87/201: Prospect 86 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 86 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 88/201: Prospect 87 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 87 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 89/201: Prospect 88 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 88 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 90/201: Prospect 89 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 89 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 91/201: Prospect 90 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 90 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 92/201: Prospect 91 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 91 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 93/201: Prospect 92 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 92 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 94/201: Prospect 93 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 93 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 95/201: Prospect 94 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 94 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 96/201: Prospect 95 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 95 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 97/201: Prospect 96 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 96 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 98/201: Prospect 97 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 97 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 99/201: Prospect 98 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 98 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 100/201: Prospect 99 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 99 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 101/201: Prospect 100 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 100 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 102/201: Prospect 101 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 101 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 103/201: Prospect 102 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 102 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 104/201: Prospect 103 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 103 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 105/201: Prospect 104 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 104 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 106/201: Prospect 105 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 105 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 107/201: Prospect 106 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 106 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 108/201: Prospect 107 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 107 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 109/201: Prospect 108 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 108 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 110/201: Prospect 109 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 109 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 111/201: Prospect 110 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 110 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 112/201: Prospect 111 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 111 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 113/201: Prospect 112 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 112 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 114/201: Prospect 113 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 113 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 115/201: Prospect 114 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 114 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 116/201: Prospect 115 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 115 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 117/201: Prospect 116 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 116 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 118/201: Prospect 117 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 117 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 119/201: Prospect 118 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 118 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 120/201: Prospect 119 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 119 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 121/201: Prospect 120 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 120 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 122/201: Prospect 121 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 121 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 123/201: Prospect 122 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 122 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 124/201: Prospect 123 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 123 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 125/201: Prospect 124 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 124 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 126/201: Prospect 125 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 125 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 127/201: Prospect 126 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 126 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 128/201: Prospect 127 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 127 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 129/201: Prospect 128 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 128 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 130/201: Prospect 129 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 129 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 131/201: Prospect 130 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 130 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 132/201: Prospect 131 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 131 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 133/201: Prospect 132 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 132 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 134/201: Prospect 133 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 133 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 135/201: Prospect 134 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 134 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 136/201: Prospect 135 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 135 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 137/201: Prospect 136 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 136 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 138/201: Prospect 137 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 137 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 139/201: Prospect 138 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 138 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 140/201: Prospect 139 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 139 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 141/201: Prospect 140 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 140 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 142/201: Prospect 141 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 141 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 143/201: Prospect 142 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 142 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 144/201: Prospect 143 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 143 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 145/201: Prospect 144 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 144 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 146/201: Prospect 145 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 145 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 147/201: Prospect 146 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 146 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 148/201: Prospect 147 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 147 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 149/201: Prospect 148 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 148 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 150/201: Prospect 149 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 149 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 151/201: Prospect 150 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 150 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 152/201: Prospect 151 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 151 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 153/201: Prospect 152 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 152 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 154/201: Prospect 153 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 153 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 155/201: Prospect 154 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 154 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 156/201: Prospect 155 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 155 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 157/201: Prospect 156 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 156 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 158/201: Prospect 157 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 157 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 159/201: Prospect 158 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 158 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 160/201: Prospect 159 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 159 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 161/201: Prospect 160 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 160 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 162/201: Prospect 161 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 161 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 163/201: Prospect 162 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 162 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 164/201: Prospect 163 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 163 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 165/201: Prospect 164 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 164 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 166/201: Prospect 165 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 165 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 167/201: Prospect 166 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 166 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 168/201: Prospect 167 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 167 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 169/201: Prospect 168 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 168 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 170/201: Prospect 169 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 169 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 171/201: Prospect 170 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 170 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 172/201: Prospect 171 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 171 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 173/201: Prospect 172 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 172 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 174/201: Prospect 173 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 173 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 175/201: Prospect 174 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 174 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 176/201: Prospect 175 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 175 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 177/201: Prospect 176 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 176 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 178/201: Prospect 177 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 177 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 179/201: Prospect 178 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 178 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 180/201: Prospect 179 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 179 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 181/201: Prospect 180 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 180 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 182/201: Prospect 181 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 181 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 183/201: Prospect 182 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 182 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 184/201: Prospect 183 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 183 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 185/201: Prospect 184 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 184 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 186/201: Prospect 185 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 185 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 187/201: Prospect 186 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 186 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 188/201: Prospect 187 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 187 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 189/201: Prospect 188 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 188 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 190/201: Prospect 189 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 189 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 191/201: Prospect 190 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 190 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 192/201: Prospect 191 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 191 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 193/201: Prospect 192 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 192 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 194/201: Prospect 193 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 193 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 195/201: Prospect 194 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 194 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 196/201: Prospect 195 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 195 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 197/201: Prospect 196 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 196 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 198/201: Prospect 197 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 197 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 199/201: Prospect 198 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 198 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 200/201: Prospect 199 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 199 - open to messages (saved)
+[audit/Audit account] OpenToMsg check 201/201: Prospect 200 - checking profile
+[audit/Audit account] OpenToMsg result: Prospect 200 - open to messages (saved)
+[audit/Audit account] done: contacted 0, final InMail 0/0, Invite 0/10
+[audit] 201 lead(s) left over - all accounts exhausted
+x[audit] 1 untouched lead(s)
+[audit/Audit account] budget: InMail 0/10, Invite 0/10
+[audit/Audit account] OpenToMsg check 1/1: Audit prospect - checking profile
+[audit/Audit account] OpenLink fetch failed for Audit prospect: offline HTTP 500
+[audit/Audit account] done: contacted 0, final InMail 0/10, Invite 0/10
+[audit] 1 lead(s) left over - all accounts exhausted
+xPage 1: 25 extracted · 25 total · 25 new leads
+Traceback (most recent call last):
+  File "D:\My workspace\Linkedin Automation\Linkedin Automation Project\app\jobs.py", line 451, in job_sync_leads
+    _stop_note(run, log)
+                    ^^^
+UnboundLocalError: cannot access local variable 'log' where it is not associated with a value
+x[audit] 3 untouched lead(s)
+[audit/Audit account] budget: InMail 0/10, Invite 0/10
+[audit/Audit account] OpenToMsg check 1/3: Prospect 0 - not open to messages (cached)
+[audit/Audit account] Invite -> Prospect 0
+[audit/Audit account] rate-limited - stopping this account
+[audit/Audit account] done: contacted 0, final InMail 0/10, Invite 0/10
+[audit/Second offline account] budget: InMail 0/10, Invite 0/10
+[audit/Second offline account] OpenToMsg check 1/1: Prospect 0 - not open to messages (cached)
+[audit/Second offline account] Invite -> Prospect 0
+[audit/Second offline account] done: contacted 1, final InMail 0/10, Invite 1/10
+x
+2 passed, 8 xfailed, 756 warnings in 6.81s

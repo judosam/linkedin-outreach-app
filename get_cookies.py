@@ -2,6 +2,8 @@ from seleniumbase import SB
 import curl_cffi
 import json
 import os
+import time
+from pathlib import Path
 from gchat_notifier import notify_critical, notify_final_status
 
 TARGET_URL_PART = 'sales-api/salesApiLeadSearch'
@@ -26,6 +28,12 @@ ACCOUNTS = {
     'Kimberly Morrison': {'user_data_dir': './user_data/user_data_kimberly', 'cookies_file': './cookies_files/kimberly_cookies.json'},
     'David Bodiford': {'user_data_dir': './user_data/user_data_david', 'cookies_file': './cookies_files/david_cookies.json'},
 }
+
+# Resolve profile/cookie locations relative to this script, not the launch folder.
+PROJECT_ROOT = Path(__file__).resolve().parent
+for config in ACCOUNTS.values():
+    for key in ('user_data_dir', 'cookies_file'):
+        config[key] = str(PROJECT_ROOT / config[key])
 
 INTERCEPT_SCRIPT = """
 (function() {
@@ -71,6 +79,13 @@ def fetch_cookies(account):
 
             sb.uc_open_with_reconnect(COOKIE_CAPTURE_SEARCH_URL, reconnect_time=3)
             sb.sleep(3)
+
+            print(f'[{account}] Complete login/2FA in the browser if prompted. Waiting up to 3 minutes for Sales Navigator search.')
+            deadline = time.monotonic() + 180
+            while '/sales/search/' not in driver.current_url:
+                if time.monotonic() >= deadline:
+                    raise TimeoutError('Login was not completed. Saved cookies have not been changed.')
+                sb.sleep(2)
 
             driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {"source": INTERCEPT_SCRIPT})
             driver.execute_script("window.location.reload();")
@@ -124,6 +139,8 @@ def fetch_cookies(account):
             # --- Cookies ---
             all_cookies = driver.get_cookies()
             cookie_dict = {c["name"]: c["value"] for c in all_cookies}
+            if not cookie_dict.get('li_at') or not matches:
+                raise RuntimeError('Complete LinkedIn login and load Sales Navigator search before capturing this account')
 
             output = {
                 "url": matched_url,
@@ -131,7 +148,17 @@ def fetch_cookies(account):
                 "cookies": cookie_dict,
             }
 
+            # A captured XHR may itself have failed. Verify before replacing the
+            # existing session file so a failed login cannot destroy it.
+            with curl_cffi.Session() as probe:
+                probe.headers.update(full_headers)
+                probe.cookies.update(cookie_dict)
+                result = probe.get(matched_url, timeout=30)
+                if result.status_code != 200:
+                    raise RuntimeError(f'Captured session was rejected (HTTP {result.status_code}); existing file unchanged')
+
             output_file = config['cookies_file']
+            os.makedirs(os.path.dirname(output_file) or '.', exist_ok=True)
             with open(output_file, 'w', encoding='utf-8') as f:
                 json.dump(output, f, indent=2, ensure_ascii=False)
 
@@ -145,8 +172,7 @@ def fetch_cookies(account):
 
             return output
     except Exception as e:
-        # notify_critical(account, e)
-        pass
+        raise RuntimeError(f'Cookie capture failed for {account}: {e}') from e
 
 def load_session(account, refresh=False):
     """Return a curl_cffi Session pre-loaded with `account`'s saved headers/cookies.
@@ -164,7 +190,11 @@ def load_session(account, refresh=False):
     return session
 
 if __name__ == "__main__":
-    for account in ACCOUNTS:
+    import argparse
+    parser = argparse.ArgumentParser(description='Capture a local LinkedIn browser session')
+    parser.add_argument('--account', choices=list(ACCOUNTS), help='Capture just this account')
+    args = parser.parse_args()
+    for account in ([args.account] if args.account else ACCOUNTS):
         try:
             fetch_cookies(account)
         except Exception as e:

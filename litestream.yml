@@ -1,0 +1,7 @@
+dbs:
+  - path: /app/app_data/app_data.db
+    replicas:
+      - type: gcs
+        bucket: outreach-app-data-946216882779
+        path: db_v2
+

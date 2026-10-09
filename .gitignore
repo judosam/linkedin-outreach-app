@@ -32,3 +32,28 @@ frontend/node_modules/
 # OS
 .DS_Store
 Thumbs.db
+.aidesigner/*
+!.aidesigner/.gitkeep
+
+# Archives, Excel data & raw data dumps
+*.zip
+*.rar
+*.tar.gz
+*.xlsx
+*.xls
+access.txt
+blocked_ids.txt
+urn_fill_ids.txt
+
+# Test artifacts & screenshots
+tests/**/*.png
+tests/*.png
+tests/*-result.txt
+tests/*-results.txt
+
+# Agent caches
+.agents/
+.claude/
+.freebuff/
+
+

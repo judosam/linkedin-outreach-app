@@ -8,16 +8,15 @@ try:
 except ImportError:
     pass
 
-# Webhook can be overridden via .env (GCHAT_WEBHOOK_URL); falls back to the
-# original hardcoded value so existing Task Scheduler runs keep working.
-GCHAT_WEBHOOK_URL = os.environ.get(
-    'GCHAT_WEBHOOK_URL',
-    'https://chat.googleapis.com/v1/spaces/AAQAjzH6Jic/messages?key=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&token=XXXX'
-)
+from notification_format import message
+
+GCHAT_WEBHOOK_URL = os.environ.get('GCHAT_WEBHOOK_URL', '')
 
 def send_gchat_message(text):
     """POST a plain text message to the configured Google Chat webhook. Never raises -
     a notification failure should never break the calling pipeline script."""
+    if not GCHAT_WEBHOOK_URL:
+        return False
     try:
         response = curl_cffi.post(GCHAT_WEBHOOK_URL, json={'text': text}, timeout=10)
         if response.status_code not in (200, 204):
@@ -26,6 +25,7 @@ def send_gchat_message(text):
     except Exception as e:
         print(f"⚠️ [G-Chat] Notification exception: {e}")
         return False
+
 
 def _is_nonzero(value):
     """True if `value` represents an actual non-zero amount, so zero-activity lines
@@ -41,7 +41,7 @@ def notify_critical(account, error):
     """🚨 Fire immediately from inside an except block when a pipeline step fails hard
     (session/auth errors, sheet write failures, unhandled exceptions, etc.)."""
     text = f"🚨 *CRITICAL ERROR*\n👤 Account: *{account}*\n\n```{str(error)[:800]}```"
-    return send_gchat_message(text)
+    return send_gchat_message(message('Worker alert', 'error', account, errors=[error]))
 
 def notify_final_status(account, stats):
     """✅ Fire once a single account finishes its run. `stats` is an ordered dict of
@@ -52,7 +52,7 @@ def notify_final_status(account, stats):
         return None
     lines = '\n'.join(f"- {label}: *{value}*" for label, value in active_stats.items())
     text = f"👤 Account: *{account}*\n\n{lines}"
-    return send_gchat_message(text)
+    return send_gchat_message(message('Account run', 'success', account, metrics=active_stats))
 
 def notify_run_summary(all_accounts_stats):
     """🎉 Fire once at the very end of the run, after every account has finished, with
@@ -70,7 +70,7 @@ def notify_run_summary(all_accounts_stats):
         return None
     body = '\n\n'.join(blocks)
     text = f"🎉 *Run Complete*\n\n{body}"
-    return send_gchat_message(text)
+    return send_gchat_message(message('Run summary', 'success', metrics=all_accounts_stats))
 
 def notify_send_errors(account, errors):
     """⚠️ Fire once per account with every non-200 API response hit during the run,
@@ -83,7 +83,7 @@ def notify_send_errors(account, errors):
     counts = Counter(errors)
     lines = '\n'.join(f"- {msg} (x{n})" for msg, n in counts.most_common())
     text = f"⚠️ *Send Errors*\n👤 Account: *{account}*\n\n{lines}"
-    return send_gchat_message(text)
+    return send_gchat_message(message('Execution warnings', 'partial', account, errors=errors))
 
 if __name__ == "__main__":
-    send_gchat_message("🧪 *Test message* from `gchat_notifier.py` — webhook is wired up correctly ✅")
+    send_gchat_message(message('Connection test', 'info', 'Google Chat notification delivery test'))

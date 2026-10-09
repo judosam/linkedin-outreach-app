@@ -17,8 +17,10 @@ except ImportError:
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 # --- Web app ---
-ADMIN_PASSWORD = os.environ.get('OCC_ADMIN_PASSWORD', 'outreach-admin-2026')
-SESSION_SECRET = os.environ.get('OCC_SESSION_SECRET', 'insecure-dev-secret-change-me')
+ADMIN_USERNAME = os.environ.get('OCC_ADMIN_USERNAME', 'admin')
+ADMIN_PASSWORD = os.environ.get('OCC_ADMIN_PASSWORD', '')
+if not ADMIN_PASSWORD or ADMIN_PASSWORD in ('change-me', 'outreach-admin-2026'):
+    raise RuntimeError('Set OCC_ADMIN_PASSWORD to a unique password in .env before starting the app')
 SESSION_TTL_HOURS = int(os.environ.get('OCC_SESSION_TTL_HOURS', '12'))
 
 # --- Sheets (same values pipeline_common uses) ---

@@ -1,4 +1,3 @@
-from cryptography.fernet import Fernet
 from email_notifier import send_reply_notification
 import re
 import pandas as pd
@@ -26,7 +25,6 @@ console = Console()
 _DRY = False  # set by main(dry_run=True) - skips LinkedIn POSTs & sheet writes
 
 # Decrypt and print the result
-encrypted = Fernet(b'fjD03VxhhAVPOD2zpsuxALdMhoEzdoc8JxtdS376qUE=').decrypt(b'gAAAAABoNCCOdp8aYYI-SQyti0V7KoIauBOR0QLeJq2LMmAkP4WE7AIzz-vmf0DNbwmMapdwFs7n2-04zzySbOL_Wv-pu6Tdrg==').decode()
 
 pprint(":spider_web: [bold green] The web is a jungle, and I'm the data hunter.[/bold green] :crossed_swords:\n")
 

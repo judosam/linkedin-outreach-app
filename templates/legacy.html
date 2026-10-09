@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F8FAFC">
+  <title>Campaign Manager</title>
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="Manage campaign accounts, prospect imports, replies and scheduled outreach from one workspace.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css?v=25">
+<link rel="stylesheet" href="/static/command-center.css?v=19">
+<link rel="icon" href="/static/campaign-manager.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/workspace.css?v=32">
+  <link rel="stylesheet" href="/static/compact-polish.css?v=32">
+  <link rel="stylesheet" href="/static/redesign.css?v=60">
+  <link rel="stylesheet" href="/static/polish.css?v=1">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ App shell (login view hides it) ============ -->
+  <div id="app" class="app-shell" hidden>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"><img src="/static/campaign-manager.svg" alt=""></span>
+          <span class="brand-text">
+            <span class="brand-title">Campaign Manager</span>
+            <span class="brand-sub">Sales Nav Core <span class="badge-soft">Ops v2.4</span></span>
+          </span>
+        </div>
+        <nav class="nav" aria-label="Main navigation">
+          <a class="nav-item" data-nav="dashboard" href="#/dashboard">
+            <span class="msym">grid_view</span><span>Dashboard</span>
+            <span class="nav-badge" id="navScheduler"></span>
+          </a>
+          <a class="nav-item" data-nav="accounts" href="#/accounts">
+            <span class="msym">manage_accounts</span><span>Accounts</span>
+            <span class="nav-badge" id="navAccounts"></span>
+          </a>
+          <a class="nav-item" data-nav="campaigns" href="#/campaigns">
+            <span class="msym">rocket_launch</span><span>Campaigns</span>
+            <span class="nav-badge" id="navCampaigns"></span>
+          </a>
+          <a class="nav-item" data-nav="leads" href="#/leads">
+            <span class="msym">filter_alt</span><span>Leads</span>
+          </a>
+          <a class="nav-item" data-nav="threads" href="#/threads">
+            <span class="msym">forum</span><span>Threads &amp; Replies</span>
+            <span class="nav-badge" id="navUnread"></span>
+          </a>
+          <a class="nav-item" data-nav="jobs" href="#/jobs">
+            <span class="msym">schedule</span><span>Jobs &amp; Scheduler</span>
+            <span class="nav-badge" id="navJobsHealth"></span>
+          </a>
+          <a class="nav-item" data-nav="salesnav" href="#/salesnav">
+            <span class="msym">lock</span><span>Sales Nav Licences</span>
+            <span class="nav-badge" id="navSalesNav"></span>
+          </a>
+          <a class="nav-item" data-nav="settings" href="#/settings">
+            <span class="msym">tune</span><span>Settings</span>
+          </a>
+        </nav>
+        <div style="display:flex;justify-content:flex-end;padding:10px 12px 0">
+          <button type="button" id="sbCollapse" aria-label="Collapse sidebar" title="Collapse sidebar">
+            <span class="msym">chevron_left</span>
+          </button>
+        </div>
+      </div>
+      <div class="sidebar-foot">
+        <div class="user-menu-wrap">
+          <button type="button" class="user-chip" id="userMenuBtn" title="Account menu" aria-haspopup="menu" aria-expanded="false">
+            <span class="avatar"><span class="msym">person</span></span>
+            <span class="user-meta">
+              <span class="user-name" id="userName">Admin</span>
+              <span class="user-sub" id="userRole">Administrator</span>
+            </span>
+            <span class="msym user-caret" aria-hidden="true">unfold_more</span>
+          </button>
+          <div class="user-menu card" id="userMenu" role="menu" hidden>
+            <button type="button" class="user-menu-item" id="menuChangePw" role="menuitem">
+              <span class="msym">lock_reset</span><span>Change password…</span>
+            </button>
+            <button type="button" class="user-menu-item" id="menuManageUsers" role="menuitem" style="display:none">
+              <span class="msym">group</span><span>Manage users</span>
+            </button>
+            <hr class="user-menu-sep">
+            <button type="button" class="user-menu-item user-menu-logout" id="logoutBtn" role="menuitem">
+              <span class="msym">logout</span><span>Log out</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main-col">
+      <header class="topbar">
+        <button type="button" class="icon-btn sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation">
+          <span class="msym">menu</span>
+        </button>
+        <div class="global-search" id="globalSearchWrap">
+          <span class="msym search-ic">search</span>
+          <input id="globalSearch" type="search" placeholder="Search campaigns, prospects, accounts…" aria-label="Global search">
+          <div class="search-pop card" id="searchPop" hidden></div>
+        </div>
+        <span class="engine-chip" id="liveChip">
+          <span class="dot dot-ok" aria-hidden="true"></span><span>Live</span>
+        </span>
+        <button type="button" class="btn btn-danger btn-sm" id="topbarStopBtn" style="display:none" title="Stop the running job">
+          <span class="msym">stop</span><span>Stop Job</span>
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" id="runBatchNow" aria-label="Run Job Now" title="Run Job Now">
+          <span class="msym">play_arrow</span><span>Run Job Now</span>
+        </button>
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Switch theme">
+          <span class="msym">light_mode</span>
+        </button>
+        <button type="button" class="icon-btn" id="notifBtn" aria-label="Notifications">
+          <span class="msym">notifications</span>
+          <span class="notif-dot" id="notifDot" hidden></span>
+        </button>
+        <div class="notif-pop card" id="notifPop" hidden></div>
+      </header>
+
+      <main id="main" tabindex="-1"><!-- views injected --></main>
+    </div>
+  </div>
+
+  <!-- ============ Login view ============ -->
+  <section id="loginView" class="login-view" hidden>
+    <div class="login-brand">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"><img src="/static/campaign-manager.svg" alt=""></span>
+        <span class="brand-text">
+          <span class="brand-title">Campaign Manager</span>
+          <span class="brand-sub">Sales Nav Core <span class="badge-soft">Ops v2.4</span></span>
+        </span>
+      </div>
+      <h1>Mission control for your<br>Sales Nav outreach fleet.</h1>
+      <p class="muted">Multi-account outreach with quota balancing, follow-up sequencing,<br>reply detection and run-level audit logs.</p>
+    </div>
+    <div class="login-panel">
+      <form id="loginForm" class="card login-card">
+        <h2>Sign in</h2>
+        <p class="muted small">Use your personal credentials to open the command center.</p>
+        <label class="field">
+          <span>Username</span>
+          <input class="input" id="loginUser" name="username" autocomplete="username" required>
+        </label>
+        <label class="field">
+          <span>Password</span>
+          <input class="input" id="loginPass" name="password" type="password" autocomplete="current-password" required>
+        </label>
+        <p class="form-error" id="loginError" role="alert" hidden></p>
+        <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Toast + modal hosts -->
+  <div id="toastHost" aria-live="polite"></div>
+  <div id="modalHost"></div>
+
+  <script src="/static/motion.js?v=2"></script>
+  <script src="/static/app.js?v=46"></script>
+  <script src="/static/views.js?v=52"></script>
+  <script src="/static/views2.js?v=57"></script>
+  <script src="/static/salesnav.js?v=1"></script>
+  <script src="/static/workspace.js?v=44"></script>
+  <script src="/static/operations.js"></script>
+  <script src="/static/icons.js?v=30"></script>
+</body>
+</html>
+
+

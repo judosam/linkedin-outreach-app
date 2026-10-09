@@ -11,6 +11,7 @@ from email.mime.multipart import MIMEMultipart
 from html import escape
 
 import curl_cffi
+from notification_format import message
 
 from .database import SessionLocal
 from .models import NotificationSettings
@@ -20,9 +21,8 @@ from .models import NotificationSettings
 SMTP_SERVER = 'smtp.gmail.com'
 SMTP_PORT = 587
 SMTP_SENDER = 'samuel@vservesolution.com'
-SMTP_PASSWORD = 'qyrg jkbx sasr aipo'  # loaded from env at import (see below)
 import os
-SMTP_PASSWORD = os.environ.get('NOTIFY_SENDER_APP_PASSWORD', SMTP_PASSWORD)
+SMTP_PASSWORD = os.environ.get('NOTIFY_SENDER_APP_PASSWORD', '')
 SMTP_SENDER = os.environ.get('NOTIFY_SENDER_EMAIL', SMTP_SENDER)
 
 ENV_WEBHOOK = os.environ.get('GCHAT_WEBHOOK_URL', '')
@@ -51,7 +51,7 @@ def get_settings():
 
 
 def _webhook_url():
-    return get_settings().gchat_webhook_url or ENV_WEBHOOK
+    return get_settings().gchat_webhook_url or ''
 
 
 def _flags():
@@ -65,12 +65,31 @@ def _flags():
 
 
 def _is_nonzero(value):
+    if value is None:
+        return False
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, (int, float)):
+        return value != 0
+    if isinstance(value, dict):
+        return any(_is_nonzero(v) for v in value.values())
+    if isinstance(value, (list, tuple, set)):
+        return any(_is_nonzero(v) for v in value)
     text = str(value).strip()
+    if not text or text.lower() in ('none', 'null', 'nan', 'undefined'):
+        return False
     number_part = text.split('/')[0].strip() if '/' in text else text
     try:
         return float(number_part) != 0
     except ValueError:
         return bool(text)
+
+
+def _format_stat_value(v):
+    if isinstance(v, dict):
+        parts = [f"{k.replace('_', ' ')}: {val}" for k, val in v.items() if _is_nonzero(val)]
+        return ', '.join(parts) if parts else '0'
+    return str(v)
 
 
 def send_gchat(text):
@@ -92,24 +111,30 @@ def notify_critical(account, error):
     """🚨 Immediate alert on a job's fatal exception."""
     if not _flags()['critical']:
         return None
-    text = f"🚨 *CRITICAL ERROR*\n👤 Account: *{account}*\n\n```{str(error)[:800]}```"
+    text = message('Worker alert', 'error', account, errors=[error])
     return send_gchat(text)
 
 
 def notify_send_errors(account, errors):
-    """⚠️ Deduplicated send-error digest: identical errors collapse to '(xN)'."""
+    """⚠️ Standalone send-error digest (identical errors collapse via message()).
+
+    NOTE: run completions must NOT call this — the lifecycle card emitted by
+    notify_lifecycle() already embeds run.errors under 'Attention needed'.
+    Calling both duplicated the 'Execution warnings' GChat cards.
+    """
     if not errors or not _flags()['send_errors']:
         return None
-    counts = {}
-    for e in errors:
-        counts[e] = counts.get(e, 0) + 1
-    lines = '\n'.join(f"- {msg} (x{n})" if n > 1 else f"- {msg}" for msg, n in counts.items())
-    text = f"⚠️ *Send Errors*\n👤 Account: *{account}*\n\n{lines}"
+    text = message('Execution warnings', 'partial', account, errors=errors)
     return send_gchat(text)
 
 
 def notify_run_summary(all_stats):
-    """🎉 One summary per run; zero-activity entries omitted."""
+    """🎉 Ad-hoc multi-target summary.
+
+    NOTE: run completions must NOT call this — notify_lifecycle() already
+    emits the single per-run completion card (stats + duration + errors);
+    calling both duplicated every run completion in GChat.
+    """
     if not _flags()['run_summary']:
         return None
     blocks = []
@@ -117,11 +142,88 @@ def notify_run_summary(all_stats):
         active = {k: v for k, v in (stats or {}).items() if _is_nonzero(v)}
         if not active:
             continue
-        lines = '\n'.join(f"   - {label}: *{value}*" for label, value in active.items())
+        lines = '\n'.join(f"   - {label}: *{_format_stat_value(value)}*" for label, value in active.items())
         blocks.append(f"👤 *{target}*\n{lines}")
     if not blocks:
         return None
-    return send_gchat(f"🎉 *Run Complete*\n\n" + '\n\n'.join(blocks))
+    return send_gchat(message('Run summary', 'success', metrics=all_stats))
+
+
+_lifecycle_notified = set()
+
+
+def reply_activity(stats):
+    """Only confirmed messages/replies count, never labels or scanned totals."""
+    if not isinstance(stats, dict):
+        return False
+    for key in ('accepts_messaged', 'new_replies'):
+        try:
+            if float(stats.get(key, 0)) > 0:
+                return True
+        except (TypeError, ValueError):
+            pass
+    return any(reply_activity(value) for value in stats.values() if isinstance(value, dict))
+
+
+def notify_lifecycle(run):
+    """Called at durable finish boundaries; never for a dry run.
+
+    Emits ONE completion summary per run row — a second call for the same
+    run (dedicated summary + _finish) is a no-op. Stopped runs stay silent:
+    the operator who stopped the run watched it happen.
+    """
+    if run.dry_run:
+        return False
+    if getattr(run, 'status', '') == 'stopped':
+        return False
+    stats = run.stats
+    if run.job_type == 'check_replies':
+        if not reply_activity(stats):
+            return False
+        # Keep the saved run intact; omit inactive accounts from the Chat summary.
+        stats = {key: value for key, value in stats.items()
+                 if not isinstance(value, dict) or reply_activity(value)}
+    key = getattr(run, 'id', None)
+    if key is not None:
+        if key in _lifecycle_notified:
+            return False
+        _lifecycle_notified.add(key)
+    try:
+        if not _flags()['run_summary']:
+            return False
+        return send_gchat(message(run.job_type, run.status, run.target,
+                                 metrics=stats, errors=run.errors, duration=run.duration_s))
+    except Exception:
+        return False
+
+
+def notify_new_replies(replies):
+    """📬 Send Google Chat alert when new replies are detected from prospects."""
+    if not replies:
+        return None
+    count = len(replies)
+    plural = 'y' if count == 1 else 'ies'
+    lines = [f"📬 *Campaign Manager · New replies* • *{count} New Repl{plural} Received!*"]
+    
+    # Identify primary campaign / account
+    target = ""
+    for r in replies:
+        camp = r.get('campaign', '')
+        acct = r.get('account', '')
+        if camp or acct:
+            target = f"{camp} / {acct}".strip(' /')
+            break
+    if target:
+        lines.append(f"🎯 *Account:* {target}")
+    
+    for r in replies[:10]:
+        name = r.get('name', 'Lead')
+        msg = (r.get('message') or r.get('snippet') or '').strip().replace('\r\n', '\n').replace('\r', '\n')
+        snippet = (msg[:250] + '…') if len(msg) > 250 else msg
+        lines.append(f"\n👤 *{name}*\n  💬 _{snippet}_")
+    
+    lines.append("\n👉 *Action:* Reply directly in Sales Navigator or LinkedIn Inbox.")
+    return send_gchat('\n'.join(lines))
 
 
 # ================= HTML reply digest (mirrors email_notifier.py style) =================
@@ -175,7 +277,7 @@ def build_reply_digest_html(replies, today_str):
 
 def send_reply_digest(replies):
     """One HTML email per run listing every new reply. Returns True on success."""
-    if not replies or not _flags()['reply_digest']:
+    if not SMTP_PASSWORD or not replies or not _flags()['reply_digest']:
         return False
     settings = get_settings()
     recipients = settings.email_recipients or ENV_RECIPIENTS
@@ -195,7 +297,7 @@ def send_reply_digest(replies):
     msg.attach(MIMEText(build_reply_digest_html(replies, today_str), 'html'))
 
     try:
-        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT, timeout=30) as server:
             server.starttls()
             server.login(SMTP_SENDER, SMTP_PASSWORD)
             server.sendmail(SMTP_SENDER, recipients, msg.as_string())

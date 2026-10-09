@@ -17,6 +17,14 @@ DECORATION_ID = 'com.linkedin.sales.deco.desktop.searchv2.LeadSearchResult-14'
 PAGE_SIZE = 25
 MAX_START = 2500
 
+
+class ResultPage(list):
+    """Preserve paging metadata while retaining the legacy list API."""
+    def __init__(self, payload):
+        super().__init__(payload.get('elements', []))
+        total = (payload.get('paging') or {}).get('total')
+        self.total = total if isinstance(total, int) and total >= 0 else None
+
 MESSAGE_ACTIONS_URL = 'https://www.linkedin.com/sales-api/salesApiMessageActions?action=createMessage'
 CONNECT_URL = 'https://www.linkedin.com/sales-api/salesApiConnection?action=connectV2'
 
@@ -29,9 +37,24 @@ PROFILE_DECORATION = (
 
 
 def extract_profile_id(entity_urn_or_text: str) -> str | None:
-    """salesNav raw IDs embed the profile id: '(ACwXXX,...' or urn '...ACwXXX'."""
-    m = re.search(r'ACw[A-Za-z0-9_-]+', entity_urn_or_text or '')
+    """Sales Nav raw IDs embed the profile id: '(ACwXXX,...' or urn '...ACwXXX'.
+
+    Two token shapes occur in the wild and both must pass:
+      ACw… - Sales Nav tokens minted by Sales Nav searches/saved lists.
+      ACo… - the flagship member token LinkedIn hands out for profiles found
+             via people lookups (what the CSV exports carry; the legacy
+             salesApiConnection.py accepted them via its paren-token regex).
+    The first (longest) id-looking token wins so the NAME_SEARCH trailing
+    context of a decorated URN is never captured."""
+    m = re.search(r'(AC[wo])[A-Za-z0-9_-]+', entity_urn_or_text or '')
     return m.group(0) if m else None
+
+
+def profile_identity(value: str) -> str:
+    """Compare bare IDs and decorated inbox profile URNs without changing send IDs."""
+    if not isinstance(value, str):
+        return ''
+    return extract_profile_id(value) or value.strip()
 
 
 def build_search_params(search_url: str) -> dict:
@@ -55,7 +78,7 @@ def search_leads(session, search_url: str, start: int):
         raise LinkedinError(f"LeadSearch HTTP {response.status_code}: {response.text[:150]}", status=response.status_code)
     if response.status_code != 200:
         raise LinkedinError(f"LeadSearch HTTP {response.status_code}: {response.text[:150]}", status=response.status_code)
-    return response.json().get('elements', [])
+    return ResultPage(response.json())
 
 
 def people_search_by_list(session, list_id: int, start: int):
@@ -83,7 +106,7 @@ def people_search_by_list(session, list_id: int, start: int):
     response = session.get(url, timeout=30)
     if response.status_code != 200:
         raise LinkedinError(f"PeopleSearch HTTP {response.status_code}: {response.text[:150]}", status=response.status_code)
-    return response.json().get('elements', [])
+    return ResultPage(response.json())
 
 
 def fetch_inbox(session, count=90):
@@ -97,7 +120,11 @@ def fetch_inbox(session, count=90):
     if response.status_code != 200:
         code = res.get('code')
         if code == 'SALES_SEAT_REQUIRED':
-            raise SeatRequiredError('Account does not have a Sales Navigator seat')
+            raise SeatRequiredError('Account does not have a Sales Navigator seat', status=response.status_code)
+        if response.status_code in (401, 403):
+            raise LinkedinError(
+                f"Cookies rejected by LinkedIn (HTTP {response.status_code}) - the session is expired or incomplete. "
+                "Re-capture with get_cookies.py or upload a freshly exported cookies file.", status=response.status_code)
         raise LinkedinError(f"Inbox HTTP {response.status_code}: {str(res)[:150]}", status=response.status_code)
     return res
 
@@ -151,7 +178,8 @@ def _interpret(response, expect_validation=True):
     error_kind:
       None                       -> ok
       'validation'               -> MESSAGE_VALIDATION_PLUGIN_ERROR (e.g. out of InMail credits)
-      'email_required'           -> HTTP 400 "email required to connect" family
+      'email_required'           -> HTTP 400 explicitly requiring an email
+      'bad_request'              -> other HTTP 400 rejections (cause may be unknown)
       'rate_limited'             -> HTTP 429
       'http'                     -> anything else non-200
     """
@@ -159,20 +187,39 @@ def _interpret(response, expect_validation=True):
         res = response.json()
     except Exception:
         res = {}
+    if not isinstance(res, dict):
+        res = {}
     if expect_validation and res.get('code') == 'MESSAGE_VALIDATION_PLUGIN_ERROR':
         return False, 'validation', res.get('message', 'message validation error')
     if response.status_code == 200:
         return True, None, ''
     if response.status_code == 429:
         return False, 'rate_limited', f"HTTP 429: {response.text[:150]}"
+    # HTTP 400 alone does not identify the cause. In particular, {"value":"-1"}
+    # is not evidence that this recipient requires an email address.
     if response.status_code == 400:
-        return False, 'email_required', f"HTTP 400: {response.text[:150]}"
+        code = str(res.get('code', '')).upper()
+        message = str(res.get('message', ''))
+        requires_email = code in {'EMAIL_REQUIRED', 'EMAIL_ADDRESS_REQUIRED'} or re.search(
+            r'\b(?:an?\s+)?e-?mail(?:\s+address)?\s+(?:is\s+)?required\b', message, re.I)
+        if requires_email:
+            return False, 'email_required', 'Email is required to connect'
+        detail = response.text.strip()[:150] or 'No response details'
+        return False, 'bad_request', f'HTTP 400: {detail} (request rejected)'
     return False, 'http', f"HTTP {response.status_code}: {response.text[:150]}"
 
 
 def polite_sleep(lo=10, hi=20):
-    """Legacy scripts sleep 10-20s between outbound actions; keep that safety."""
-    time.sleep(random.uniform(lo, hi))
+    """Legacy scripts sleep 10-20s between outbound actions; keep that safety.
+    Wakes up immediately if a stop request is issued by the runner."""
+    delay = random.uniform(lo, hi)
+    try:
+        from . import runner
+        stopped = runner.sleep_or_stop(delay)
+        return not stopped
+    except Exception:
+        time.sleep(delay)
+        return True
 
 
 class LinkedinError(Exception):

@@ -1,4 +1,3 @@
-from cryptography.fernet import Fernet
 import re
 import pandas as pd
 import os
@@ -24,7 +23,6 @@ console = Console()
 _DRY = False  # set by main(dry_run=True) - simulates sends without POSTing
 
 # Decrypt and print the result
-encrypted = Fernet(b'fjD03VxhhAVPOD2zpsuxALdMhoEzdoc8JxtdS376qUE=').decrypt(b'gAAAAABoNCCOdp8aYYI-SQyti0V7KoIauBOR0QLeJq2LMmAkP4WE7AIzz-vmf0DNbwmMapdwFs7n2-04zzySbOL_Wv-pu6Tdrg==').decode()
 
 pprint(":spider_web: [bold green] The web is a jungle, and I'm the data hunter.[/bold green] :crossed_swords:\n")
 
@@ -131,7 +129,7 @@ def process_campaign_account(campaign_id, campaign, account, message_limit):
     account_data = data[(data['Campaigns'] == campaign_id) & (data['Associate Account'] == account)]
     if account_data.empty:
         return
-    message_limit = round(int(message_limit) / 2)
+    message_limit = max(0, int(message_limit))
     session = None  # lazily created on first actual send need
 
     COUNTS_FILE = f'./daily_run_counts/daily_run_counts_{campaign_id}_{account}.json'

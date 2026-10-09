@@ -1,0 +1,123 @@
+tests/test_added_date.py::test_added_date_sort_uses_creation_not_latest_activity
+tests/test_audit_workflows.py::test_multipage_live_counts_and_dedupe[sync_leads]
+tests/test_audit_workflows.py::test_multipage_live_counts_and_dedupe[import_list]
+tests/test_audit_workflows.py::test_stop_blocks_next_request_and_reports_stopping
+tests/test_audit_workflows.py::test_batch_validates_everything_before_start
+tests/test_audit_workflows.py::test_single_flight_rejects_duplicate_and_stop_skips_next_worker
+tests/test_audit_workflows.py::test_restricted_default_worker_scope_is_not_all
+tests/test_audit_workflows.py::test_notification_format_is_bounded_and_preserves_zero_metrics
+tests/test_audit_workflows.py::test_password_change_survives_bootstrap_and_no_plaintext
+tests/test_audit_workflows.py::test_frozen_selection_and_comment_access
+tests/test_audit_workflows.py::test_restricted_schedule_defaults_are_persisted
+tests/test_audit_workflows.py::test_import_rejected_session_updates_account_and_failed_run
+tests/test_audit_workflows.py::test_stop_after_first_import_page_preserves_committed_leads
+tests/test_audit_workflows.py::test_legacy_delete_uses_same_guard_and_scope
+tests/test_audit_workflows.py::test_batch_does_not_hide_earlier_failure
+tests/test_audit_workflows.py::test_explicit_decline_wins_over_booking_phrase
+tests/test_audit_workflows.py::test_verify_missing_seat_persists_and_requires_success_to_reactivate
+tests/test_audit_workflows.py::test_verify_auth_failure_persists_reauth[401]
+tests/test_audit_workflows.py::test_verify_auth_failure_persists_reauth[403]
+tests/test_audit_workflows.py::test_verify_missing_file_persists_reauth
+tests/test_audit_workflows.py::test_verify_transient_error_does_not_revoke_account
+tests/test_audit_workflows.py::test_verify_never_resumes_a_paused_account
+tests/test_audit_workflows.py::test_verify_persists_fallback_resolved_session
+tests/test_audit_workflows.py::test_worker_seat_required_is_distinct_and_stops_session
+tests/test_audit_workflows.py::test_workers_skip_accounts_without_seat
+tests/test_audit_workflows.py::test_frontend_assets_versioned_and_account_responses_not_cached
+tests/test_campaign_mapping.py::test_unmapped_scope_rejected_and_shared_account_allowed
+tests/test_campaign_mapping.py::test_campaign_edit_keeps_hidden_url_and_rejects_bad_links
+tests/test_campaign_mapping.py::test_empty_explicit_scope_never_expands_and_paused_campaigns_stay_out[job_check_replies]
+tests/test_campaign_mapping.py::test_empty_explicit_scope_never_expands_and_paused_campaigns_stay_out[job_send_followups]
+tests/test_campaign_mapping.py::test_empty_explicit_scope_never_expands_and_paused_campaigns_stay_out[job_send_connections]
+tests/test_dedupe_and_csv.py::test_dedupe_merges_urn_and_bare_snid_twins
+tests/test_dedupe_and_csv.py::test_dedupe_rescues_reply_from_twin
+tests/test_dedupe_and_csv.py::test_dedupe_moves_events_and_comments_to_keeper
+tests/test_dedupe_and_csv.py::test_dedupe_clears_junk_urls_and_matches_by_url
+tests/test_dedupe_and_csv.py::test_dedupe_preview_writes_nothing
+tests/test_dedupe_and_csv.py::test_csv_import_dedupes_by_url_and_normalizes_urn
+tests/test_live_logs.py::test_callable_logger_updates_before_completion_without_committing_leads
+tests/test_live_logs.py::test_switch_reset_and_rolling_buffer_snapshot
+tests/test_live_logs.py::test_history_pagination_and_combined_filters
+tests/test_live_logs.py::test_activity_joins_real_context_and_requires_auth
+tests/test_notify_premium.py::test_no_started_message_on_run_start
+tests/test_notify_premium.py::test_summary_is_fancy
+tests/test_notify_premium.py::test_single_summary_for_send_followups
+tests/test_notify_premium.py::test_no_summary_when_stopped_or_dry
+tests/test_notify_premium.py::test_stopped_lifecycle_silent
+tests/test_notify_premium.py::test_check_replies_zero_activity_stays_silent[stats0]
+tests/test_notify_premium.py::test_check_replies_zero_activity_stays_silent[stats1]
+tests/test_notify_premium.py::test_check_replies_zero_activity_stays_silent[stats2]
+tests/test_notify_premium.py::test_check_replies_activity_sends_once_and_omits_idle_accounts[accepts_messaged]
+tests/test_notify_premium.py::test_check_replies_activity_sends_once_and_omits_idle_accounts[new_replies]
+tests/test_notify_premium.py::test_check_replies_worker_zero_activity_never_sends_chat[200-payload0-active]
+tests/test_notify_premium.py::test_check_replies_worker_zero_activity_never_sends_chat[403-payload1-seat_required]
+tests/test_notify_premium.py::test_check_replies_worker_zero_activity_never_sends_chat[401-payload2-needs_reauth]
+tests/test_polish.py::RegressionTests::test_active_budgets_only
+tests/test_polish.py::RegressionTests::test_add_and_update_account_with_campaign_assignment
+tests/test_polish.py::RegressionTests::test_caps_span_campaigns_and_survive_partial_updates
+tests/test_polish.py::RegressionTests::test_check_replies_sends_gchat_when_replies_found
+tests/test_polish.py::RegressionTests::test_check_replies_suppresses_gchat_when_zero_replies
+tests/test_polish.py::RegressionTests::test_digest_still_runs_when_summary_fails
+tests/test_polish.py::RegressionTests::test_dry_run_does_not_advance_leads
+tests/test_polish.py::RegressionTests::test_followup_rate_limit_stops_all_stages
+tests/test_polish.py::RegressionTests::test_inactive_accounts_filtered_from_jobs
+tests/test_polish.py::RegressionTests::test_job_stops_when_stop_requested
+tests/test_polish.py::RegressionTests::test_manual_search_and_list_are_distinct
+tests/test_polish.py::RegressionTests::test_manual_sync_worker_and_scoped_connection_signature
+tests/test_polish.py::RegressionTests::test_missing_imported_path_uses_same_accounts_registered_file
+tests/test_polish.py::RegressionTests::test_missing_optional_smtp_does_not_block_startup
+tests/test_polish.py::RegressionTests::test_notify_is_nonzero
+tests/test_polish.py::RegressionTests::test_notify_new_replies
+tests/test_polish.py::RegressionTests::test_partial_and_error_digest
+tests/test_polish.py::RegressionTests::test_private_files_are_not_served
+tests/test_polish.py::RegressionTests::test_reauth
+tests/test_polish.py::RegressionTests::test_runner_sequence_stopped
+tests/test_polish.py::RegressionTests::test_schedule_store_filters_inactive_accounts
+tests/test_polish.py::RegressionTests::test_session_precheck_on_job_run
+tests/test_polish.py::RegressionTests::test_stop_job_and_api_stop
+tests/test_polish.py::RegressionTests::test_threads_honors_requested_page_size
+tests/test_polish.py::RegressionTests::test_three_workers_guard_rejected_sessions
+tests/test_polish.py::RegressionTests::test_upload_cookies_endpoint
+tests/test_polish.py::RegressionTests::test_username_required
+tests/test_polish.py::RegressionTests::test_verify_account_sessions_helper
+tests/test_schedule_store.py::ScheduleStoreTests::test_existing_rows_migrate_once_preserving_clock_and_history
+tests/test_schedule_store.py::ScheduleStoreTests::test_fixed_india_default_and_reject_other_timezones
+tests/test_schedule_store.py::ScheduleStoreTests::test_india_weekday_uses_local_midnight
+tests/test_schedule_store.py::ScheduleStoreTests::test_legacy_settings_import_uses_india
+tests/test_schedule_store.py::ScheduleStoreTests::test_next_time_skips_dst_gap
+tests/test_schedule_store.py::ScheduleStoreTests::test_partial_edit_normalizes_old_zone_without_listing
+tests/test_schedule_store.py::ScheduleStoreTests::test_save_and_serialize
+tests/test_schedule_store.py::ScheduleStoreTests::test_validate_scope
+
+============================== warnings summary ===============================
+C:\Users\Samuel P\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\sql\schema.py:3627
+  C:\Users\Samuel P\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\sql\schema.py:3627: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+90 tests collected in 2.77s
+Traceback (most recent call last):
+  File "C:\Users\Samuel P\AppData\Local\Programs\Python\Python312\Lib\shutil.py", line 633, in _rmtree_unsafe
+    os.unlink(fullname)
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'C:\\Users\\SAMUEL~1\\AppData\\Local\\Temp\\tmp2hnyore1\\test.db'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Samuel P\AppData\Local\Programs\Python\Python312\Lib\weakref.py", line 666, in _exitfunc
+    f()
+  File "C:\Users\Samuel P\AppData\Local\Programs\Python\Python312\Lib\weakref.py", line 590, in __call__
+    return info.func(*info.args, **(info.kwargs or {}))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Samuel P\AppData\Local\Programs\Python\Python312\Lib\tempfile.py", line 939, in _cleanup
+    cls._rmtree(name, ignore_errors=ignore_errors)
+  File "C:\Users\Samuel P\AppData\Local\Programs\Python\Python312\Lib\tempfile.py", line 934, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+  File "C:\Users\Samuel P\AppData\Local\Programs\Python\Python312\Lib\shutil.py", line 781, in rmtree
+    return _rmtree_unsafe(path, onexc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Samuel P\AppData\Local\Programs\Python\Python312\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.unlink, fullname, err)
+  File "C:\Users\Samuel P\AppData\Local\Programs\Python\Python312\Lib\tempfile.py", line 909, in onexc
+    _os.unlink(path)
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'C:\\Users\\SAMUEL~1\\AppData\\Local\\Temp\\tmp2hnyore1\\test.db'

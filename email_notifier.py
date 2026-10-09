@@ -17,7 +17,7 @@ except ImportError:
 SMTP_SERVER = os.environ.get('SMTP_SERVER', "smtp.gmail.com")
 SMTP_PORT = int(os.environ.get('SMTP_PORT', 587))
 SENDER_EMAIL = os.environ.get('NOTIFY_SENDER_EMAIL', 'samuel@vservesolution.com')
-SENDER_APP_PASSWORD = os.environ.get('NOTIFY_SENDER_APP_PASSWORD', 'qyrg jkbx sasr aipo')
+SENDER_APP_PASSWORD = os.environ.get('NOTIFY_SENDER_APP_PASSWORD', '')
 _recipients_env = os.environ.get(
     'NOTIFY_RECIPIENT_EMAILS',
     "samuel@vservesolution.com,ranganathan@vservesolution.com,nandhini@vservesolution.com,prabhu@vservesolution.com"
